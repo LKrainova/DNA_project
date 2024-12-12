@@ -48,12 +48,6 @@ try:
         print("Файл сохранён")
 except Exception as e1:
     print("Не удалось сохранить файл", e1)
-# Step 4: Check if the request was successful
-# if response.status_code == 200:
-#     # Step 5: Save the data to a file
-#     with open("sequence.fasta", "w") as file:
-#         file.write(response.text)
-#     print("Sequence data saved to 'sequence.fasta'")
-# else:
-#     print(f"Failed to retrieve data. HTTP Status Code: {response.status_code}")
-#
+
+
+
