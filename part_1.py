@@ -3,12 +3,22 @@
 # Отрезать у BLAST-формата его лишнюю часть
 # Подумать, что делать с переводом букв в верхний регистр, чтобы пользователь постоянно работал с
 # upper_case переменной (сразу добавлять на input? (dna = 'tgct'.upper()?)
+#
+# sur_dna = str(input("Введите ДНК: \n")).upper()
+# print(sur_dna)
+# dna = 'ctaatgagccatgctgatcgatgtccgttgcgagttttcgataacttaaaagcacgcggatacgtatttaggaaaaaacttatgtgagactcacctgagactaagtcgtgtggacctcaataagtcctttctaaggtatcacatcgaaacgcatagtgttgaaatccttttttcatgtaaattcaattgattctcgaaatctgcacaagtcgctgacaaactttaccttatcctagaagaggtacgcccacctgtccaggcgctgttgtcatgcaagtacattagcactacggagcggaataatcactccgatacgagacgtatatagacaggcgccgtcggtagagctagtgacgggcagctaccgtctctaataggagataactggctctcagacgacagccgcagccctacctgggttccaaccgtttacattaaactggcctacatggtgacgcctccagcaacataaccacaagtgtgttgttaggaagtagagtgtgctggaaccatcctcattggaaccttactgcgactgccggagttccaccatcgtgaagggccgagaataggtaacgtaaacgggacgcattgtctgaaaatgagtctccgagaagaaaagatcatttccattatagatgagttgcgacggaagtaacgtgtgtcaatgctagtcctggtagatggcgacaagcac'
 
-sur_dna = str(input("Введите ДНК: \n")).upper()
-print(sur_dna)
 
+with open(f"OQ324770.1.fasta", "r+") as f: # PQ633951.1
+    lines = f.readlines()
+    '''
+    Убираем имеющиеся в FASTA-файле пробелы в конце строк.
+    Читаем со второй строки.
+    '''
+    dna = ''.join(line.strip() for line in lines[1:])
+print(dna)
+print(type(dna))
 
-dna = 'ctaatgagccatgctgatcgatgtccgttgcgagttttcgataacttaaaagcacgcggatacgtatttaggaaaaaacttatgtgagactcacctgagactaagtcgtgtggacctcaataagtcctttctaaggtatcacatcgaaacgcatagtgttgaaatccttttttcatgtaaattcaattgattctcgaaatctgcacaagtcgctgacaaactttaccttatcctagaagaggtacgcccacctgtccaggcgctgttgtcatgcaagtacattagcactacggagcggaataatcactccgatacgagacgtatatagacaggcgccgtcggtagagctagtgacgggcagctaccgtctctaataggagataactggctctcagacgacagccgcagccctacctgggttccaaccgtttacattaaactggcctacatggtgacgcctccagcaacataaccacaagtgtgttgttaggaagtagagtgtgctggaaccatcctcattggaaccttactgcgactgccggagttccaccatcgtgaagggccgagaataggtaacgtaaacgggacgcattgtctgaaaatgagtctccgagaagaaaagatcatttccattatagatgagttgcgacggaagtaacgtgtgtcaatgctagtcctggtagatggcgacaagcac'
 
 
 # Вообще нужно перевести её в upper case и дальше с ним работать
@@ -59,10 +69,6 @@ validation_result = validating_sequence(dna)
 print(validation_result)
 
 
-#todo: Очистка последовательности в случае, если были обнаружены лишние элементы
-# Наверно,не нужно это делать, п.ч. это м.б. непрочтённый нуклеотид N и лучше сохранить
-# его позицию
-
 
 #todo: Подсчёт количества каждого из нуклеотидов в цепи ДНК
 
@@ -92,9 +98,11 @@ def transcription(seq):
     """
     Транскрипция ДНК в РНК
 
-    Синтез мРНК с антисенс-цепи (template strand). Последовательность мРНК
-    соответствует кодирующей цепи ДНК (coding strand),
-    тимин(T) при этом заменяется на урацил(U)
+    Синтез мРНК идёт с антисенс-цепи (template strand).
+    У нас задана кодирующая цепь (coding strand).
+
+    Последовательность мРНК будет совпадать с последовательностью кодирующей цепи,
+    за исключением того, что тимин(T) заменяется на урацил(U)
 
     """
     coding_RNA = seq.replace("T", "U")
@@ -102,11 +110,11 @@ def transcription(seq):
 
 coding_RNA = transcription(DNA)
 print(f'Кодирующая цепь: {DNA}')
-print(f'Кодирующая РНК: {coding_RNA}')
+print(f'Матричная РНК: {coding_RNA}')
 
-print(transcription.__doc__) # Это мы можем посмотреть, что записано в комменте про функцию!
-help(transcription) # Или так
-print(validating_sequence.__doc__)
+# print(transcription.__doc__) # Это мы можем посмотреть, что записано в комменте про функцию!
+# help(transcription) # Или так
+# print(validating_sequence.__doc__)
 
 
 

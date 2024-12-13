@@ -1,14 +1,17 @@
-"""Скрипт для получения данных из базы данных NCBI (National Center for Biotechnology Information).
-Используется EFetch - одна из утилит NCBI API,позволяющая извлекать из NCBI данные в различных
-форматах.
-"""
+'''
+Скрипт для получения данных из базы данных NCBI
+(National Center for Biotechnology Information).
+
+Используется EFetch - одна из утилит NCBI API,
+позволяющая извлекать из NCBI данные в различных форматах.
+'''
 
 
 '''Библиотека для HTTP-запросов'''
 # pip install requests
 import requests
 
-
+# def download_sequence():
 '''Указываем параметры для запроса к API NCBI'''
 
 base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi" # Базовый URL для EFetch
@@ -19,13 +22,19 @@ format = "fasta" # в каком формате хотим получить да
 mode = "text" # в каком виде мы хотим данные (ну мы хотим в блокноте)
 
 
-'''Конструируем эндпойнт-ссылку для запроса к API через EFetch,
- запрашиваем данные у базы данных. '''
+'''
+Конструируем эндпойнт-ссылку для запроса к API через EFetch,
+запрашиваем данные у базы данных.
+'''
 
 api_url = f"{base_url}?db={db}&id={accession_number}&rettype={format}&retmode={mode}"
 print(api_url)
-'''Вообще на этом этапе можно уже кликнуть на ссылку и файл сам скачается в загрузки, 
-но мы честно допишем GET-запрос!
+
+'''
+Вообще на этом этапе можно уже кликнуть на ссылку,
+и файл сам скачается в загрузки. 
+
+Но мы честно допишем GET-запрос!
 '''
 
 '''Делаем GET-запрос'''
@@ -37,17 +46,20 @@ except Exception as e:
     print(f"Не удалось подключиться к серверу,{e}")
 
 
-'''Если запрос прошёл успешно, скачиваем файл (куда?)
+'''
+Если запрос прошёл успешно, скачиваем файл (куда?)
 N.B. Если код в try не выполнился, то эта переменная и не создалась как бы и дальше
-не пойдёт'''
+не пойдёт.
+'''
 # todo: куда скачиваем-то? Прописать папку "Здесь"
 
 try:
-    with open(f"{accession_number}.fasta", 'w+') as file:
-        file.write(ncbi_response.text)
-        print("Файл сохранён")
+    with open(f"{accession_number}.fasta", 'w+') as f:
+        f.write(ncbi_response.text)
+        print(f"Файл сохранён как {accession_number}.fasta")
 except Exception as e1:
     print("Не удалось сохранить файл", e1)
 
-
+# if __name__ == "__main__":
+#     download_sequence()
 
