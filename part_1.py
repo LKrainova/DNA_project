@@ -9,7 +9,7 @@
 # dna = 'ctaatgagccatgctgatcgatgtccgttgcgagttttcgataacttaaaagcacgcggatacgtatttaggaaaaaacttatgtgagactcacctgagactaagtcgtgtggacctcaataagtcctttctaaggtatcacatcgaaacgcatagtgttgaaatccttttttcatgtaaattcaattgattctcgaaatctgcacaagtcgctgacaaactttaccttatcctagaagaggtacgcccacctgtccaggcgctgttgtcatgcaagtacattagcactacggagcggaataatcactccgatacgagacgtatatagacaggcgccgtcggtagagctagtgacgggcagctaccgtctctaataggagataactggctctcagacgacagccgcagccctacctgggttccaaccgtttacattaaactggcctacatggtgacgcctccagcaacataaccacaagtgtgttgttaggaagtagagtgtgctggaaccatcctcattggaaccttactgcgactgccggagttccaccatcgtgaagggccgagaataggtaacgtaaacgggacgcattgtctgaaaatgagtctccgagaagaaaagatcatttccattatagatgagttgcgacggaagtaacgtgtgtcaatgctagtcctggtagatggcgacaagcac'
 
 
-with open(f"OQ324770.1.fasta", "r+") as f: # PQ633951.1
+with open(f"PQ633951.1.fasta", "r+") as f: # PQ633951.1
     lines = f.readlines()
     '''
     Убираем имеющиеся в FASTA-файле пробелы в конце строк.
@@ -116,8 +116,11 @@ print(f'Матричная РНК: {coding_RNA}')
 # help(transcription) # Или так
 # print(validating_sequence.__doc__)
 
+'''
+Reverse Complement of Coding Strand:
 
-
-
-
+Take the coding strand (5' - ATGCCA - 3').
+Find the complement: TACGGT (same as the template strand).
+Reverse it to make it 5' to 3': 5' - TGGCAT - 3'.
+'''
 
